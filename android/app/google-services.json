@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1024910078055",
+    "project_id": "eaeu-alumni",
+    "storage_bucket": "eaeu-alumni.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024910078055:android:dfea8f97b18bc57a8f24c2",
+        "android_client_info": {
+          "package_name": "com.eaeu.student"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmyAQ50oDEPMp1L3-obpFkGkOLfSkRl7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
