@@ -155,20 +155,171 @@ class _PayProfileContainerState extends State<PayProfileContainer> {
                     top: MediaQuery.of(context).size.height *
                         (UiUtils.appBarSmallerHeightPercentage + 0.075),
                   ),
-                  child:
-                      // ListView.builder(
-                      // itemCount: claimPaymentData!.length,
-                      // itemBuilder: (context, index) {
-                      // Column(
-                      // return
-                      ListTile(
-                    title: Text(
-                      'ID: ${claimPaymentData!.id}\n'
-                      'Name: ${claimPaymentData!.name}\n'
-                      'Amount: ${claimPaymentData!.amount}\n'
-                      'Date: ${claimPaymentData!.date}\n',
+                  child: Card(
+                    color: Colors.redAccent,
+                    // Define the shape of the card
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    // Define how the card's content should be clipped
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    // Define the child widget of the card
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        // Add padding around the row widget
+                        Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              // Add an image widget to display an image
+                              Image.asset(
+                                "assets/images/claims.png",
+                                height: 80,
+                                width: 80,
+                                fit: BoxFit.cover,
+                              ),
+                              // Add some spacing between the image and the text
+                              Container(width: 20),
+                              // Add an expanded widget to take up the remaining horizontal space
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    // Add some spacing between the top of the card and the title
+                                    Container(height: 5),
+                                    // Add a title widget
+                                    Row(
+                                      children: [
+                                        const Text("Claim Name : ",
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.white,
+                                              // fontWeight: FontWeight.bold
+                                            ),
+                                            maxLines: 2),
+                                        Text(claimPaymentData!.name!,
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.white
+                                                // fontWeight: FontWeight.bold
+                                                )),
+                                      ],
+                                    ),
+                                    // Add some spacing between the title and the subtitle
+                                    Container(height: 5),
+                                    // Add a subtitle widget
+                                    Row(
+                                      children: [
+                                        const Text("Claim Amount : ",
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.white
+                                                // fontWeight: FontWeight.bold
+                                                ),
+                                            maxLines: 2),
+                                        Text(claimPaymentData!.amount!,
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.white
+                                                // fontWeight: FontWeight.bold
+                                                )),
+                                      ],
+                                    ),
+                                    // Add some spacing between the subtitle and the text
+                                    Container(height: 10),
+                                    // Add a text widget to display some text
+                                    Row(
+                                      children: [
+                                        const Text("Due : ",
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.white
+                                                // fontWeight: FontWeight.bold
+                                                ),
+                                            maxLines: 2),
+                                        Text(claimPaymentData!.date!,
+                                            style: const TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.white
+                                                // fontWeight: FontWeight.bold
+                                                )),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+                  // child: Card(
+                  //   margin: const EdgeInsets.symmetric(
+                  //       horizontal: 10, vertical: 10),
+                  //   elevation: 0.2,
+                  //   // child: Padding(
+                  //   //   padding: const EdgeInsets.all(10.0),
+                  //   // child: Padding(
+                  //   //   padding: const EdgeInsets.symmetric(
+                  //   //       horizontal: 100, vertical: 100),
+                  //   child: Column(
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     // crossAxisAlignment: CrossAxisAlignment.start,
+                  //     children: [
+                  //       Row(
+                  //         children: [
+                  //           const Text("Claim Payments Name : ",
+                  //               style: TextStyle(
+                  //                 fontSize: 20,
+                  //                 // fontWeight: FontWeight.bold
+                  //               ),
+                  //               maxLines: 2),
+                  //           Text(claimPaymentData!.name!,
+                  //               style: const TextStyle(
+                  //                 fontSize: 20,
+                  //                 // fontWeight: FontWeight.bold
+                  //               )),
+                  //         ],
+                  //       ),
+                  //       // Spacer(),
+                  //       const SizedBox(height: 8),
+                  //       Row(
+                  //         children: [
+                  //           const Text("Claim Payments Amount : ",
+                  //               style: TextStyle(
+                  //                 fontSize: 16,
+                  //                 // fontWeight: FontWeight.bold
+                  //               )),
+                  //           Text(claimPaymentData!.amount!,
+                  //               style: const TextStyle(fontSize: 16)),
+                  //         ],
+                  //       ),
+                  //       const SizedBox(height: 8),
+                  //       Row(
+                  //         children: [
+                  //           Text('Due : ${claimPaymentData!.date!}'),
+                  //         ],
+                  //       )
+                  //     ],
+                  //   ),
+                  //   // ),
+                  // )
+                  // ListView.builder(
+                  // itemCount: claimPaymentData!.length,
+                  // itemBuilder: (context, index) {
+                  // Column(
+                  // return
+                  //     ListTile(
+                  //   title: Text(
+                  //     'ID: ${claimPaymentData!.id}\n'
+                  //     'Name: ${claimPaymentData!.name}\n'
+                  //     'Amount: ${claimPaymentData!.amount}\n'
+                  //     'Date: ${claimPaymentData!.date}\n',
+                  //   ),
+                  // ),
                   // return PayProfileDetailsContainer(
                   //   nameKey: motherNameKey,
                   //   // parent: state.mother,

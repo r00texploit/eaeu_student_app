@@ -18,7 +18,7 @@ class PaymentRepository {
   }) async {
     try {
       Map<String, dynamic> queryParameters = {
-        "type": 2 ?? 0,
+        "type": 2,
       };
 
       // if (queryParameters['assignment_id'] == 0) {

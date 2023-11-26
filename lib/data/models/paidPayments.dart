@@ -5,14 +5,16 @@ class PaidData {
   String? name;
   String? amount;
   String? date;
+  String? accounter;
 
-  PaidData({this.id, this.name, this.amount, this.date});
+  PaidData({this.id, this.name, this.amount, this.date, this.accounter});
 
   factory PaidData.fromJson(Map<String, dynamic> json) {
     return PaidData(
       id: json['id'],
       name: json['name'],
       amount: json['amount'],
+      accounter: json['accounter'] ?? "",
       date: json['date'],
     );
   }
