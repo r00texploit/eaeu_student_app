@@ -48,6 +48,7 @@ class Api {
   static String getStudentAttendance = "${databaseUrl}student/attendance";
   static String getAssignments = "${databaseUrl}student/assignments";
   static String getClaimPayment = "${databaseUrl}student/get-claim-data";
+  static String getPaidPayment = "${databaseUrl}student/get-paid-data";
 
   static String submitAssignment = "${databaseUrl}student/submit-assignment";
   static String getPaidData = "${databaseUrl}student/get-paid-data";

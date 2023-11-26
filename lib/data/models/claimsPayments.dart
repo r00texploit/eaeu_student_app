@@ -16,12 +16,13 @@ class ClaimsPaymentData {
       date: json['date'],
     );
   }
-  static List<ClaimsPaymentData> parseJson(Map<String, dynamic> jsonData) {
-    print("object: ${jsonData['data']}");
+  static ClaimsPaymentData parseJson(Map<String, dynamic> jsonData) {
+    print("object: ${jsonData['data'].runtimeType}");
     // final data = json.decode(jsonData['data']) as List<dynamic>;
-    var data = jsonData['data'] as List;
-    print("object1: ${data.runtimeType}");
-    return data.map((item) => ClaimsPaymentData.fromJson(item)).toList();
+    // var data = jsonData['data'] as List<dynamic>;
+    // print("object1: ${data.runtimeType}");
+    return //data.map((item) =>
+     ClaimsPaymentData.fromJson(jsonData['data']);//).toList();
     // return data.map((item) => ClaimsPaymentData.fromJson(item)).toList();
   }
 }

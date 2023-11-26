@@ -17,6 +17,7 @@ import 'package:student/ui/screens/home/widgets/bottomNavigationItemContainer.da
 import 'package:student/ui/screens/home/widgets/examContainer.dart';
 import 'package:student/ui/screens/home/widgets/homeContainer.dart';
 import 'package:student/ui/screens/home/widgets/moreMenuBottomsheetContainer.dart';
+import 'package:student/ui/screens/home/widgets/paidProfileContainer.dart';
 import 'package:student/ui/screens/home/widgets/parentProfileContainer.dart';
 import 'package:student/ui/screens/home/widgets/payProfileContainer.dart';
 import 'package:student/ui/screens/reports/reportSubjectsContainer.dart';
@@ -368,10 +369,13 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         parentProfileKey) {
       return const ParentProfileContainer();
     }
-    if (homeBottomSheetMenu[_currentlyOpenMenuIndex].title ==
-        payProfileKey) {
+    if (homeBottomSheetMenu[_currentlyOpenMenuIndex].title == payProfileKey) {
       return const PayProfileContainer();
     }
+    if (homeBottomSheetMenu[_currentlyOpenMenuIndex].title == paidProfileKey) {
+      return const PaidProfileContainer();
+    }
+
     if (homeBottomSheetMenu[_currentlyOpenMenuIndex].title == holidaysKey) {
       return const HolidaysContainer();
     }

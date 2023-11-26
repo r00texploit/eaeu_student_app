@@ -34,6 +34,10 @@ final List<Menu> homeBottomSheetMenu = [
     iconUrl: UiUtils.getImagePath("parent_icon.svg"),
     title: payProfileKey,
   ),
+  Menu(
+    iconUrl: UiUtils.getImagePath("parent_icon.svg"),
+    title: paidProfileKey,
+  ),
   // Menu(iconUrl: UiUtils.getImagePath("holiday_icon.svg"), title: holidaysKey),
   Menu(iconUrl: UiUtils.getImagePath("setting_icon.svg"), title: settingsKey),
 ];

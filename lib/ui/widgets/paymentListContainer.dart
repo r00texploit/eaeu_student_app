@@ -1,18 +1,13 @@
 import 'package:student/app/routes.dart';
 import 'package:student/cubits/assignmentsCubit.dart';
-import 'package:student/cubits/authCubit.dart';
 import 'package:student/cubits/paymentsCubit.dart';
-import 'package:student/data/models/assignment.dart';
 import 'package:student/data/models/claimsPayments.dart';
 import 'package:student/data/models/payments.dart';
 import 'package:student/ui/screens/home/cubits/paymentsTabSelectionCubit.dart';
-import 'package:student/ui/widgets/assignmentsContainer.dart';
 import 'package:student/ui/widgets/customShimmerContainer.dart';
 import 'package:student/ui/widgets/errorContainer.dart';
 import 'package:student/ui/widgets/noDataContainer.dart';
-import 'package:student/ui/widgets/paymentsContainer.dart';
 import 'package:student/ui/widgets/shimmerLoadingContainer.dart';
-import 'package:student/ui/widgets/subjectImageContainer.dart';
 import 'package:student/utils/animationConfiguration.dart';
 import 'package:student/utils/labelKeys.dart';
 import 'package:student/utils/uiUtils.dart';
@@ -125,7 +120,7 @@ class PaymentListContainer extends StatelessWidget {
     required ClaimsPaymentData claimsPayments,
     required BuildContext context,
     required int index,
-    required int totalPayments,
+    // required int totalPayments,
     // required bool hasMorePayments,
     // required bool hasMoreAssignmentsInProgress,
     // required bool fetchMoreAssignmentsFailure,
@@ -285,9 +280,10 @@ class PaymentListContainer extends StatelessWidget {
                                   : Text(
                                       claimsPayments.name!,
                                       //if assignment subject is selected then maxLines should be 2 else it is 1,
-                                      maxLines: claimsPayments.name!.length >= 20
-                                          ? 2
-                                          : 1,
+                                      maxLines:
+                                          claimsPayments.name!.length >= 20
+                                              ? 2
+                                              : 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         height: 1.0,
@@ -352,18 +348,18 @@ class PaymentListContainer extends StatelessWidget {
         //     // &&
         //     // fetchMoreAssignmentsFailure
         //     )
-          // Center(
-          //   child: CupertinoButton(
-          //     child: Text(UiUtils.getTranslatedLabel(context, retryKey)),
-          //     onPressed: () {
-          //       context.read<PaymentsCubit>().fetchMorePayments(
-          //             type: childId ?? 1,
-          //             // isSubmitted: isAssignmentSubmitted,
-          //             // useParentApi: context.read<AuthCubit>().isParent(),
-          //           );
-          //     },
-          //   ),
-          // )
+        // Center(
+        //   child: CupertinoButton(
+        //     child: Text(UiUtils.getTranslatedLabel(context, retryKey)),
+        //     onPressed: () {
+        //       context.read<PaymentsCubit>().fetchMorePayments(
+        //             type: childId ?? 1,
+        //             // isSubmitted: isAssignmentSubmitted,
+        //             // useParentApi: context.read<AuthCubit>().isParent(),
+        //           );
+        //     },
+        //   ),
+        // )
       ],
     );
   }
@@ -374,7 +370,7 @@ class PaymentListContainer extends StatelessWidget {
       builder: (context, state) {
         if (state is PaymentsFetchSuccess) {
           //fetch assignments based on assignment selected assignment tab type
-          List<ClaimsPaymentData>? claimsPayments = //= paymentTabTitle == paidKey
+          ClaimsPaymentData? claimsPayments = //= paymentTabTitle == paidKey
               context.read<PaymentsCubit>().getClaimPayments();
           // : context.read<AssignmentsCubit>().getSubmittedAssignments();
 
@@ -384,7 +380,7 @@ class PaymentListContainer extends StatelessWidget {
           //   assignments = _getAssignmentsByAssignmentFilters(assignments);
           // }
 
-          return claimsPayments.isEmpty
+          return claimsPayments.amount! == "0"
               ? NoDataContainer(
                   titleKey: paymentTabTitle == assignedKey
                       ? noAssignmentsToSubmitKey
@@ -392,24 +388,23 @@ class PaymentListContainer extends StatelessWidget {
                   animate: animateItems,
                 )
               : Column(
-                  children:
-                      List.generate(claimsPayments.length, (index) => index)
-                          .map(
-                            (index) => _buildPaymentContainer(
-                              context: context,
-                              // hasMorePayments:
-                              //     state.fetchMorePayments,
-                              claimsPayments: claimsPayments[index],
-                              totalPayments: claimsPayments.length,
-                              index: index,
-                              // hasMorePayments:
-                              //     context.read<PaymentsCubit>().hasMore(),
-                              // fetchMoreAssignmentsFailure:
-                              //     context.read<PaymentsCubit>().hasMore(),
-                              // claimsPayments: claim,
-                            ),
-                          )
-                          .toList(),
+                  children: List.generate(3, (index) => index)
+                      .map(
+                        (index) => _buildPaymentContainer(
+                          context: context,
+                          // hasMorePayments:
+                          //     state.fetchMorePayments,
+                          claimsPayments: claimsPayments,
+                          // totalPayments: claimsPayments.,
+                          index: index,
+                          // hasMorePayments:
+                          //     context.read<PaymentsCubit>().hasMore(),
+                          // fetchMoreAssignmentsFailure:
+                          //     context.read<PaymentsCubit>().hasMore(),
+                          // claimsPayments: claim,
+                        ),
+                      )
+                      .toList(),
                 );
         }
         if (state is AssignmentsFetchFailure) {

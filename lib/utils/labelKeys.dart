@@ -9,7 +9,8 @@ const String assignmentsKey = "assignments";
 const String timeTableKey = "timeTable";
 const String noticeBoardKey = "noticeBoard";
 const String parentProfileKey = "parentProfile";
-const String payProfileKey = "payProfile";
+const String payProfileKey = "claimsProfile";
+const String paidProfileKey = "paidProfile";
 
 const String resultsKey = "results";
 const String settingsKey = "settings";

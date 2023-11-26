@@ -1,7 +1,5 @@
-import 'package:student/cubits/authCubit.dart';
 import 'package:student/cubits/paymentsCubit.dart';
 import 'package:student/ui/widgets/customAppbar.dart';
-import 'package:student/ui/widgets/parentProfileDetailsContainer.dart';
 import 'package:student/ui/widgets/payProfileDetailsContainer.dart';
 import 'package:student/utils/labelKeys.dart';
 import 'package:student/utils/uiUtils.dart';
@@ -33,7 +31,7 @@ class PayProfileScreen extends StatelessWidget {
                   ),
                   PayProfileDetailsContainer(
                     nameKey: nameKey,
-                    payProfile: claims.first,
+                    payProfile: claims,
                   )
                 ],
               ),

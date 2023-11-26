@@ -11,7 +11,7 @@ class PaymentsInitial extends PaymentsState {}
 class PaymentsFetchInProgress extends PaymentsState {}
 
 class PaymentsFetchSuccess extends PaymentsState {
-  final List<ClaimsPaymentData> claimsPayment;
+  final ClaimsPaymentData claimsPayment;
   // final int totalPage; //total page of assignments
   // final int currentPage; //current assignments page
   // final bool moreAssignmentsFetchError;
@@ -29,7 +29,7 @@ class PaymentsFetchSuccess extends PaymentsState {
   });
 
   PaymentsFetchSuccess copyWith({
-    List<ClaimsPaymentData>? newClaimsPayments,
+    ClaimsPaymentData? newClaimsPayments,
     bool? newFetchMorePaymentsInProgress,
     bool? newMorePaymentsFetchError,
     int? newCurrentPage,
@@ -109,14 +109,13 @@ class PaymentsCubit extends Cubit<PaymentsState> {
         );
   }
 
-  List<ClaimsPaymentData> getClaimPayments() {
+  ClaimsPaymentData getClaimPayments() {
     if (state is PaymentsFetchSuccess) {
-      return (state as PaymentsFetchSuccess)
-          .claimsPayment
-          .where((element) => element.id! > 0)
-          .toList();
+      return (state as PaymentsFetchSuccess).claimsPayment;
+      // .where((element) => element.id! > 0)
+      // .toList();
     }
-    return [];
+    return ClaimsPaymentData();
   }
 
   // List<PaymentsHistory> getPaymentsHistory() {

@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:student/cubits/paymentsCubit.dart';
 import 'package:student/data/models/claimsPayments.dart';
 import 'package:student/data/repositories/paymentRepository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,21 +46,21 @@ class StudentPayDetailsCubit extends Cubit<StudentPayDetailsState> {
   StudentPayDetailsCubit(this._studentRepository)
       : super(StudentParentDetailsInitial());
 
-  Future<List<ClaimsPaymentData>> getStudentPayDetails() async {
+  Future<ClaimsPaymentData> getStudentPayDetails() async {
     try {
       final result = await _studentRepository.fetchPayments();
 
       emit(
         StudentPayDetailsFetchSuccess(
-            amount: result.first.amount!,
-            name: result.first.name!,
-            date: result.first.date!,
-            id: result.first.id!),
+            amount: result.amount!,
+            name: result.name!,
+            date: result.date!,
+            id: result.id!),
       );
       return result;
     } catch (e) {
       emit(StudentPayDetailsFetchFailure(e.toString()));
-      return [];
+      return ClaimsPaymentData();
     }
   }
   // data() async {

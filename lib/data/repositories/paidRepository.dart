@@ -2,12 +2,11 @@
 // import 'package:student/data/models/assignment.dart';
 import 'dart:convert';
 
-import 'package:student/data/models/claimsPayments.dart';
-import 'package:student/data/models/payments.dart';
+import 'package:student/data/models/paidPayments.dart';
 import 'package:student/utils/api.dart';
 
-class PaymentRepository {
-  Future<ClaimsPaymentData> fetchPayments({
+class PaidRepository {
+  Future<List<PaidData>> fetchPaidPayments({
     int? page,
     // int? assignmentId,
     // int? subjectId,
@@ -38,12 +37,12 @@ class PaymentRepository {
       // }
 
       final result = await Api.get(
-        url: Api.getClaimPayment,
+        url: Api.getPaidPayment,
         useAuthToken: true,
         queryParameters: queryParameters,
       );
       print("resp: ${result['data']}");
-      return ClaimsPaymentData.parseJson(
+      return PaidData.parseJson(
           // jsonDecode(
           result);
       // .toString()
@@ -61,14 +60,13 @@ class PaymentRepository {
     }
   }
 
-  Future<List<ClaimsPayments>> fetchPaymentsFromResponse(
-      String response) async {
+  Future<List<PaidData>> fetchPaymentsFromResponse(String response) async {
     try {
       final parsedResponse = jsonDecode(response);
       final data = parsedResponse['data'];
 
       return [
-        ClaimsPayments(
+        PaidData(
           id: data['id'],
           name: data['name'],
           amount: data['amount'],
@@ -80,7 +78,7 @@ class PaymentRepository {
     }
   }
 
-  Future<PaymentsHistory> getpaymentsHistory({
+  Future<PaidData> getpaymentsHistory({
     required int type,
     // required List<String> filePaths,
     // required CancelToken cancelToken,
@@ -104,7 +102,7 @@ class PaymentRepository {
 
       final paymentsHistory = (result['data'] ?? []) as List;
 
-      return PaymentsHistory.fromJson(
+      return PaidData.fromJson(
         Map.from(
           paymentsHistory.isEmpty ? {} : paymentsHistory.first,
         ),

@@ -1,11 +1,11 @@
+import 'package:student/cubits/studentPaidDetailsCubit.dart';
 import 'package:student/cubits/studentParentDetailsCubit.dart';
 import 'package:student/cubits/studentPayDetailsCubit.dart';
 import 'package:student/data/models/claimsPayments.dart';
+import 'package:student/data/models/paidPayments.dart';
 import 'package:student/ui/styles/colors.dart';
 import 'package:student/ui/widgets/customShimmerContainer.dart';
 import 'package:student/ui/widgets/errorContainer.dart';
-import 'package:student/ui/widgets/parentProfileDetailsContainer.dart';
-import 'package:student/ui/widgets/payProfileDetailsContainer.dart';
 import 'package:student/ui/widgets/screenTopBackgroundContainer.dart';
 import 'package:student/ui/widgets/shimmerLoadingContainer.dart';
 import 'package:student/utils/labelKeys.dart';
@@ -13,26 +13,26 @@ import 'package:student/utils/uiUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PayProfileContainer extends StatefulWidget {
-  const PayProfileContainer({Key? key}) : super(key: key);
+class PaidProfileContainer extends StatefulWidget {
+  const PaidProfileContainer({Key? key}) : super(key: key);
 
   @override
-  State<PayProfileContainer> createState() => _PayProfileContainerState();
+  State<PaidProfileContainer> createState() => _PayProfileContainerState();
 }
 
-class _PayProfileContainerState extends State<PayProfileContainer> {
-  ClaimsPaymentData? claimPaymentData;
+class _PayProfileContainerState extends State<PaidProfileContainer> {
+  List<PaidData>? paidData;
 
   @override
   void initState() {
     super.initState();
-    fetchParentDetails();
+    fetchPaidDetails();
   }
 
-  void fetchParentDetails() {
+  void fetchPaidDetails() {
     Future.delayed(Duration.zero, () async {
-      claimPaymentData =
-          await context.read<StudentPayDetailsCubit>().getStudentPayDetails();
+      paidData =
+          await context.read<StudentPaidDetailsCubit>().getStudentPaidDetails();
     });
   }
 
@@ -128,7 +128,7 @@ class _PayProfileContainerState extends State<PayProfileContainer> {
         children: [
           Align(
             child: Text(
-              UiUtils.getTranslatedLabel(context, payProfileKey),
+              UiUtils.getTranslatedLabel(context, paidProfileKey),
               style: TextStyle(
                 color: Theme.of(context).scaffoldBackgroundColor,
                 fontSize: UiUtils.screenTitleFontSize,
@@ -144,61 +144,82 @@ class _PayProfileContainerState extends State<PayProfileContainer> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        BlocBuilder<StudentPayDetailsCubit, StudentPayDetailsState>(
+        BlocBuilder<StudentPaidDetailsCubit, StudentPaidDetailsState>(
           builder: (context, state) {
-            if (state is StudentPayDetailsFetchSuccess) {
+            if (state is StudentPaidDetailsFetchSuccess) {
+              // return Align(
+              //   alignment: Alignment.topCenter,
+              //   child: SingleChildScrollView(
+              //     padding: EdgeInsets.only(
+              //       bottom: UiUtils.getScrollViewBottomPadding(context),
+              //       top: MediaQuery.of(context).size.height *
+              //           (UiUtils.appBarSmallerHeightPercentage + 0.075),
+              //     ),
+              //     child: ListView.builder(
+              //         itemCount: paidData!.length,
+              //         itemBuilder: (context, index) {
+              //           // Column(
+              //           return ListTile(
+              //             title: Text(
+              //               'ID: ${paidData![index].id}\n'
+              //               'Name: ${paidData![index].name}\n'
+              //               'Amount: ${paidData![index].amount}\n'
+              //               'Date: ${paidData![index].date}\n',
+              //             ),
+              //           );
+              //           // return PayProfileDetailsContainer(
+              //           //   nameKey: motherNameKey,
+              //           //   // parent: state.mother,
+              //           //   payProfile: claimPaymentData![index],
+              //           // );
+              //           // }
+              //           // const SizedBox(
+              //           //   height: 70.0,
+              //           // ),
+              //           // ParentProfileDetailsContainer(
+              //           //   nameKey: fatherNameKey,
+              //           //   parent: state.father,
+              //           // ),
+              //           // const SizedBox(
+              //           //   height: 70.0,
+              //           // ),
+              //           // state.guardian.id == 0
+              //           //     ? const SizedBox()
+              //           //     : ParentProfileDetailsContainer(
+              //           //         nameKey: guardianNameKey,
+              //           //         parent: state.guardian,
+              //           //       ),
+              //           //   ],
+              //           // ),
+              //           // itemCount: ,
+              //         }),
+              //   ),
+              // );
               return Align(
                 alignment: Alignment.topCenter,
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.only(
-                    bottom: UiUtils.getScrollViewBottomPadding(context),
-                    top: MediaQuery.of(context).size.height *
-                        (UiUtils.appBarSmallerHeightPercentage + 0.075),
-                  ),
-                  child:
-                      // ListView.builder(
-                      // itemCount: claimPaymentData!.length,
-                      // itemBuilder: (context, index) {
-                      // Column(
-                      // return
-                      ListTile(
-                    title: Text(
-                      'ID: ${claimPaymentData!.id}\n'
-                      'Name: ${claimPaymentData!.name}\n'
-                      'Amount: ${claimPaymentData!.amount}\n'
-                      'Date: ${claimPaymentData!.date}\n',
-                    ),
-                  ),
-                  // return PayProfileDetailsContainer(
-                  //   nameKey: motherNameKey,
-                  //   // parent: state.mother,
-                  //   payProfile: claimPaymentData![index],
-                  // );
-                  // }
-                  // const SizedBox(
-                  //   height: 70.0,
-                  // ),
-                  // ParentProfileDetailsContainer(
-                  //   nameKey: fatherNameKey,
-                  //   parent: state.father,
-                  // ),
-                  // const SizedBox(
-                  //   height: 70.0,
-                  // ),
-                  // state.guardian.id == 0
-                  //     ? const SizedBox()
-                  //     : ParentProfileDetailsContainer(
-                  //         nameKey: guardianNameKey,
-                  //         parent: state.guardian,
-                  //       ),
-                  //   ],
-                  // ),
-                  // itemCount: ,
-                  // ),
-                ),
+                child: (paidData != null)
+                    ? ListView.builder(
+                        padding: EdgeInsets.only(
+                          bottom: UiUtils.getScrollViewBottomPadding(context),
+                          top: MediaQuery.of(context).size.height *
+                              (UiUtils.appBarSmallerHeightPercentage + 0.075),
+                        ),
+                        itemCount: paidData!.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(
+                              'ID: ${paidData![index].id}\n'
+                              'Name: ${paidData![index].name}\n'
+                              'Amount: ${paidData![index].amount}\n'
+                              'Date: ${paidData![index].date}\n',
+                            ),
+                          );
+                        },
+                      )
+                    : CircularProgressIndicator(), // Show a loading spinner if paidData is null
               );
             }
-            if (state is StudentParentDetailsFetchFailure) {
+            if (state is StudentPaidDetailsFetchFailure) {
               return const ErrorContainer(errorMessageCode: "errorMessage");
             }
 
