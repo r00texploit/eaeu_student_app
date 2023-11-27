@@ -1,14 +1,5 @@
-import 'package:student/cubits/assignmentsCubit.dart';
-import 'package:student/cubits/examsOnlineCubit.dart';
-import 'package:student/cubits/paymentsCubit.dart';
-import 'package:student/cubits/resultsCubit.dart';
 import 'package:student/data/models/claimsPayments.dart';
-import 'package:student/data/models/payments.dart';
-import 'package:student/data/models/subject.dart';
-import 'package:student/utils/labelKeys.dart';
-import 'package:student/utils/uiUtils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 //It must be child of AssignmentsCibit
 class PaymentsDContainer extends StatefulWidget {

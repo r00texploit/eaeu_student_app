@@ -1,16 +1,9 @@
 import 'package:student/cubits/paymentsCubit.dart';
-import 'package:student/cubits/studentSubjectAndSlidersCubit.dart';
-import 'package:student/data/models/payments.dart';
-import 'package:student/data/models/subject.dart';
-import 'package:student/ui/screens/home/cubits/assignmentsTabSelectionCubit.dart';
 import 'package:student/ui/screens/home/cubits/paymentsTabSelectionCubit.dart';
-import 'package:student/ui/widgets/assignmentListContainer.dart';
-import 'package:student/ui/widgets/assignmentsSubjectsContainer.dart';
 import 'package:student/ui/widgets/customRefreshIndicator.dart';
 import 'package:student/ui/widgets/customTabBarContainer.dart';
 import 'package:student/ui/widgets/paymentFilterBottomsheetContainer.dart';
 import 'package:student/ui/widgets/paymentListContainer.dart';
-import 'package:student/ui/widgets/paymentsDContainer.dart';
 import 'package:student/ui/widgets/svgButton.dart';
 import 'package:student/ui/widgets/screenTopBackgroundContainer.dart';
 import 'package:student/ui/widgets/tabBarBackgroundContainer.dart';

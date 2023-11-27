@@ -1,7 +1,4 @@
 import 'package:student/data/models/claimsPayments.dart';
-import 'package:student/data/models/payments.dart';
-import 'package:student/ui/widgets/customUserProfileImageWidget.dart';
-import 'package:student/utils/labelKeys.dart';
 import 'package:student/utils/uiUtils.dart';
 import 'package:flutter/material.dart';
 

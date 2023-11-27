@@ -69,8 +69,9 @@ class ReportSubjectsContainerState extends State<ReportSubjectsContainer> {
 
   Widget _buildMySubjects() {
     //remove blank subject entry [added for all assignment filter from previous screen]
-    if (context.read<AuthCubit>().isParent() && subjects != null)
+    if (context.read<AuthCubit>().isParent() && subjects != null) {
       subjects!.removeWhere((element) => element.id == 0);
+    }
     return SingleChildScrollView(
       padding: EdgeInsets.only(
         top: UiUtils.getScrollViewTopPadding(

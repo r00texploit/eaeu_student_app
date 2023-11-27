@@ -11,7 +11,6 @@ import 'package:student/ui/widgets/shimmerLoadingContainer.dart';
 import 'package:student/utils/animationConfiguration.dart';
 import 'package:student/utils/labelKeys.dart';
 import 'package:student/utils/uiUtils.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

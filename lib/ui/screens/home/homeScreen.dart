@@ -149,7 +149,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     ),
   ];
 
-  late List<GlobalKey> _bottomNavItemShowCaseKey = [];
+  late final List<GlobalKey> _bottomNavItemShowCaseKey = [];
 
   @override
   void initState() {

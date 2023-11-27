@@ -4,8 +4,6 @@ import 'package:student/data/models/claimsPayments.dart';
 import 'package:student/ui/styles/colors.dart';
 import 'package:student/ui/widgets/customShimmerContainer.dart';
 import 'package:student/ui/widgets/errorContainer.dart';
-import 'package:student/ui/widgets/parentProfileDetailsContainer.dart';
-import 'package:student/ui/widgets/payProfileDetailsContainer.dart';
 import 'package:student/ui/widgets/screenTopBackgroundContainer.dart';
 import 'package:student/ui/widgets/shimmerLoadingContainer.dart';
 import 'package:student/utils/labelKeys.dart';

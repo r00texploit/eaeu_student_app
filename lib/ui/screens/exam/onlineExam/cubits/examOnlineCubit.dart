@@ -76,11 +76,11 @@ class ExamOnlineCubit extends Cubit<ExamOnlineState> {
     marks.sort((first, second) => first.compareTo(second));
 
     //arrange questions from low to high mark
-    marks.forEach((questionMark) {
+    for (var questionMark in marks) {
       arrangedQuestions.addAll(
         questions.where((element) => element.marks == questionMark).toList(),
       );
-    });
+    }
 
     return arrangedQuestions;
   }

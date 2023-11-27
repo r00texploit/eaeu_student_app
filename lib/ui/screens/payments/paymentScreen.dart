@@ -3,18 +3,13 @@
 // import 'package:student/cubits/uploadPaymentsCubit.dart';
 // import 'package:student/data/models/Payments.dart';
 import 'package:student/data/models/payments.dart';
-import 'package:student/data/models/studyMaterial.dart';
-import 'package:student/data/repositories/paymentRepository.dart';
 // import 'package:student/ui/screens/Payments/widgets/undoPaymentsBottomsheetContainer.dart';
 // import 'package:student/ui/screens/Payments/widgets/uploadPaymentsFilesBottomsheetContainer.dart';
 import 'package:student/ui/widgets/customAppbar.dart';
-import 'package:student/ui/widgets/studyMaterialWithDownloadButtonContainer.dart';
 import 'package:student/utils/labelKeys.dart';
 import 'package:student/utils/uiUtils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 
 class PaymentsScreen extends StatefulWidget {
   final ClaimsPayments Payments;

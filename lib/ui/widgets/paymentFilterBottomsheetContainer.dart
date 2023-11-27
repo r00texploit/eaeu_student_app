@@ -1,4 +1,3 @@
-import 'package:student/ui/widgets/assignmentsContainer.dart';
 import 'package:student/ui/widgets/paymentsContainer.dart';
 import 'package:student/utils/labelKeys.dart';
 import 'package:student/utils/uiUtils.dart';
