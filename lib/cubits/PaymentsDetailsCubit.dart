@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+// import 'package:student/data/models/PaymentsDetails.dart';
 import 'package:student/data/models/paymentsDetails.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:student/data/repositories/paymentDetailsRepository.dart';
@@ -71,14 +72,14 @@ class PaymentsDetailsCubit extends Cubit<PaymentsDetailsState> {
   PaymentsDetailsCubit(this._studentRepository)
       : super(PaymentsDetailsInitial());
 
-  getPaymentDetails(int type, int id, bool isPaid) async {
+  getPaymentDetails(int type, int id, int isPaid) async {
     try {
-      final result =
-          await _studentRepository.fetchPaymentsDetails(type: type, id: id,is_paid: isPaid);
+      var result = await _studentRepository.fetchPaymentsDetails(
+          type: type, id: id, is_paid: isPaid);
 
       emit(
         PaymentsDetailsFetchSuccess(
-          reg_fees: result.reg_fees ?? "",
+          reg_fees: result!.reg_fees ?? "",
           card_fees: result.card_fees ?? "",
           study_fees: result.study_fees ?? "",
           mor_fees: result.mor_fees ?? "",

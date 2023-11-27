@@ -1,6 +1,7 @@
 import 'package:student/cubits/PaymentsDetailsCubit.dart';
 import 'package:student/cubits/studentPaidDetailsCubit.dart';
 import 'package:student/data/models/paymentsDetails.dart';
+// import 'package:student/data/models/paymentsDetails.dart';
 import 'package:student/ui/styles/colors.dart';
 import 'package:student/ui/widgets/customShimmerContainer.dart';
 import 'package:student/ui/widgets/errorContainer.dart';
@@ -14,7 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class PaymentDetailsContainer extends StatefulWidget {
   final int? type;
   final int? id;
-  final bool? ispaid;
+  final int? ispaid;
   const PaymentDetailsContainer(
       {Key? key, required this.id, required this.ispaid, required this.type})
       : super(key: key);

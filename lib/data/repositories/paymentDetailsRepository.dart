@@ -7,7 +7,7 @@ import 'package:student/data/models/paidPayments.dart';
 import 'package:student/utils/api.dart';
 
 class PaymentDetailsRepository {
-  Future<PaymentsDetails> fetchPaymentsDetails({
+  Future<PaymentsDetails?> fetchPaymentsDetails({
     int? id,
     // int? assignmentId,
     // int? subjectId,
@@ -15,13 +15,13 @@ class PaymentDetailsRepository {
     // required bool useParentApi,
     // required int childId,
     int? type,
-    required bool? is_paid,
+    required int? is_paid,
   }) async {
     try {
       Map<String, dynamic> queryParameters = {
-        "type": type ?? 0,
-        "id": id ?? 0,
-        "is_paid": is_paid ?? false
+        "type": type,
+        "id": id,
+        "is_paid": is_paid ?? 0
       };
 
       // if (queryParameters['assignment_id'] == 0) {
@@ -41,7 +41,7 @@ class PaymentDetailsRepository {
       // }
 
       final result = await Api.get(
-        url: Api.getPaidPayment,
+        url: Api.getPaymentDetais,
         useAuthToken: true,
         queryParameters: queryParameters,
       );
