@@ -8,11 +8,6 @@ import 'package:student/utils/api.dart';
 class PaidRepository {
   Future<List<PaidData>> fetchPaidPayments({
     int? page,
-    // int? assignmentId,
-    // int? subjectId,
-    // required int isSubmitted,
-    // required bool useParentApi,
-    // required int childId,
     int? type,
   }) async {
     try {
@@ -20,41 +15,13 @@ class PaidRepository {
         "type": 2 ?? 0,
       };
 
-      // if (queryParameters['assignment_id'] == 0) {
-      //   queryParameters.remove('assignment_id');
-      // }
-
-      // if (queryParameters['subject_id'] == 0) {
-      //   queryParameters.remove('subject_id');
-      // }
-
-      // if (queryParameters['page'] == 0) {
-      //   queryParameters.remove('page');
-      // }
-
-      // if (useParentApi) {
-      //   queryParameters.addAll({"child_id": childId});
-      // }
-
       final result = await Api.get(
         url: Api.getPaidPayment,
         useAuthToken: true,
         queryParameters: queryParameters,
       );
       print("resp: ${result['data']}");
-      return PaidData.parseJson(
-          // jsonDecode(
-          result);
-      // .toString()
-      // ); //fetchPaymentsFromResponse(result['data']['data']);
-      // {
-      //   "Payments":
-      // (result['data']['data'] as List)
-      //     .map((e) => ClaimsPayments.fromJson(Map.from(e)))
-      //     .toList()
-      // "totalPage": result['data']['last_page'] as int,
-      // "currentPage": result['data']['current_page'] as int,
-      // };
+      return PaidData.parseJson(result);
     } catch (e) {
       throw ApiException(e.toString());
     }

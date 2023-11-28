@@ -50,7 +50,8 @@ class Api {
   static String getClaimPayment = "${databaseUrl}student/get-claim-data";
   static String getPaidPayment = "${databaseUrl}student/get-paid-data";
   static String getPaymentDetais = "${databaseUrl}student/get-payment-details";
-
+  static String getCertificateType =
+      "${databaseUrl}student/request-certificate";
 
   static String submitAssignment = "${databaseUrl}student/submit-assignment";
   static String getPaidData = "${databaseUrl}student/get-paid-data";

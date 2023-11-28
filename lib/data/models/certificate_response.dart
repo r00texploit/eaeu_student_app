@@ -1,11 +1,12 @@
-import 'package:json_serializable/json_serializable.dart';
+import 'package:json_annotation/json_annotation.dart';
+// import 'package:json_serializable/json_serializable.dart';
 
 part 'certificate_response.g.dart';
 
 @JsonSerializable()
 class CertificateResponse {
   bool error;
-  String message;
+  String message; 
   List<Certificate> data;
   int code;
 
