@@ -1,7 +1,8 @@
 import 'package:student/cubits/PaymentsDetailsCubit.dart';
 import 'package:student/cubits/studentPaidDetailsCubit.dart';
+import 'package:student/data/models/paidPayments.dart';
 import 'package:student/data/models/paymentsDetails.dart';
-// import 'package:student/data/models/paymentsDetails.dart';
+import 'package:student/ui/screens/home/widgets/paymentsDetails.dart';
 import 'package:student/ui/styles/colors.dart';
 import 'package:student/ui/widgets/customShimmerContainer.dart';
 import 'package:student/ui/widgets/errorContainer.dart';
@@ -13,22 +14,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PaymentDetailsContainer extends StatefulWidget {
-  final int? type;
-  final int? id;
-  final int? ispaid;
+  final int? type, id, ispaid;
+
   const PaymentDetailsContainer(
-      {Key? key, required this.id, required this.ispaid, required this.type})
+      {Key? key, required this.type, required this.id, required this.ispaid})
       : super(key: key);
 
   @override
-  State<PaymentDetailsContainer> createState() =>
-      _PaymentDetailsContainerState();
+  State<PaymentDetailsContainer> createState() => _PayProfileContainerState();
 }
 
-class _PaymentDetailsContainerState extends State<PaymentDetailsContainer> {
-  PaymentsDetails? paymentsDetails;
-  // int? id;
-  // bool? is_paid;
+class _PayProfileContainerState extends State<PaymentDetailsContainer> {
+  PaymentsDetails? paymentDetails;
 
   @override
   void initState() {
@@ -38,11 +35,13 @@ class _PaymentDetailsContainerState extends State<PaymentDetailsContainer> {
 
   void fetchPaidDetails() {
     Future.delayed(Duration.zero, () async {
-      paymentsDetails = await context
+      paymentDetails = await context
           .read<PaymentsDetailsCubit>()
           .getPaymentDetails(widget.type!, widget.id!, widget.ispaid!);
     });
   }
+
+  List<String> items = ['Registertion', '67', 'Study fees'];
 
   Widget _buildParentDetailsValueShimmerLoading(BoxConstraints boxConstraints) {
     return Column(
@@ -155,328 +154,94 @@ class _PaymentDetailsContainerState extends State<PaymentDetailsContainer> {
         BlocBuilder<PaymentsDetailsCubit, PaymentsDetailsState>(
           builder: (context, state) {
             if (state is PaymentsDetailsFetchSuccess) {
-              // return Align(
-              //   alignment: Alignment.topCenter,
-              //   child: SingleChildScrollView(
-              //     padding: EdgeInsets.only(
-              //       bottom: UiUtils.getScrollViewBottomPadding(context),
-              //       top: MediaQuery.of(context).size.height *
-              //           (UiUtils.appBarSmallerHeightPercentage + 0.075),
-              //     ),
-              //     child: ListView.builder(
-              //         itemCount: paidData!.length,
-              //         itemBuilder: (context, index) {
-              //           // Column(
-              //           return ListTile(
-              //             title: Text(
-              //               'ID: ${paidData![index].id}\n'
-              //               'Name: ${paidData![index].name}\n'
-              //               'Amount: ${paidData![index].amount}\n'
-              //               'Date: ${paidData![index].date}\n',
-              //             ),
-              //           );
-              //           // return PayProfileDetailsContainer(
-              //           //   nameKey: motherNameKey,
-              //           //   // parent: state.mother,
-              //           //   payProfile: claimPaymentData![index],
-              //           // );
-              //           // }
-              //           // const SizedBox(
-              //           //   height: 70.0,
-              //           // ),
-              //           // ParentProfileDetailsContainer(
-              //           //   nameKey: fatherNameKey,
-              //           //   parent: state.father,
-              //           // ),
-              //           // const SizedBox(
-              //           //   height: 70.0,
-              //           // ),
-              //           // state.guardian.id == 0
-              //           //     ? const SizedBox()
-              //           //     : ParentProfileDetailsContainer(
-              //           //         nameKey: guardianNameKey,
-              //           //         parent: state.guardian,
-              //           //       ),
-              //           //   ],
-              //           // ),
-              //           // itemCount: ,
-              //         }),
-              //   ),
-              // );
               return Align(
                 alignment: Alignment.topCenter,
-                child: (paymentsDetails != null)
-                    // ?
-                    // ListView.separated(
-                    // padding: EdgeInsets.only(
-                    //   bottom: UiUtils.getScrollViewBottomPadding(context),
-                    //   top: MediaQuery.of(context).size.height *
-                    //       (UiUtils.appBarSmallerHeightPercentage + 0.075),
-                    // ),
-                    // itemCount: paymentsDetails!.length,
-                    // itemBuilder: (context, index) {
-                    //   return
-
+                child: (paymentDetails != null)
                     ? Card(
-                        // child: Hero(
-                        //     tag: 'paidData${paidData![index].id}',
                         child: Material(
                             color: Colors.blueAccent,
-                            // Define the shape of the card
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            // Define how the card's content should be clipped
                             clipBehavior: Clip.antiAliasWithSaveLayer,
-                            // Define the child widget of the card
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                // Add padding around the row widget
                                 Padding(
                                   padding: const EdgeInsets.all(15),
                                   child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      // Add an image widget to display an image
                                       Image.asset(
                                         "assets/images/claims.png",
                                         height: 80,
                                         width: 80,
                                         fit: BoxFit.cover,
                                       ),
-                                      // Add some spacing between the image and the text
                                       Container(width: 20),
-                                      // Add an expanded widget to take up the remaining horizontal space
                                       Expanded(
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
-                                            // Add some spacing between the top of the card and the title
                                             Container(height: 5),
-                                            // Add a title widget
                                             Row(
                                               children: [
                                                 const Text("Claim Name : ",
                                                     style: TextStyle(
                                                       fontSize: 15,
                                                       color: Colors.white,
-                                                      // fontWeight: FontWeight.bold
                                                     ),
                                                     maxLines: 2),
-                                                Text(
-                                                    paymentsDetails!.card_fees!,
+                                                Text(paymentDetails!.card_fees!,
                                                     style: const TextStyle(
                                                         fontSize: 12,
-                                                        color: Colors.white
-                                                        // fontWeight: FontWeight.bold
-                                                        )),
+                                                        color: Colors.white)),
                                               ],
                                             ),
                                             Container(height: 5),
-                                            // Add a title widget
-                                            Row(
-                                              children: [
-                                                const Text("Claim Name : ",
-                                                    style: TextStyle(
-                                                      fontSize: 15,
-                                                      color: Colors.white,
-                                                      // fontWeight: FontWeight.bold
-                                                    ),
-                                                    maxLines: 2),
-                                                Text(
-                                                    paymentsDetails!
-                                                        .certf_fees!,
-                                                    style: const TextStyle(
-                                                        fontSize: 12,
-                                                        color: Colors.white
-                                                        // fontWeight: FontWeight.bold
-                                                        )),
-                                              ],
-                                            ),
-                                            Container(height: 5),
-                                            // Add a title widget
-                                            Row(
-                                              children: [
-                                                const Text("Claim Name : ",
-                                                    style: TextStyle(
-                                                      fontSize: 15,
-                                                      color: Colors.white,
-                                                      // fontWeight: FontWeight.bold
-                                                    ),
-                                                    maxLines: 2),
-                                                Text(paymentsDetails!.it_fees!,
-                                                    style: const TextStyle(
-                                                        fontSize: 12,
-                                                        color: Colors.white
-                                                        // fontWeight: FontWeight.bold
-                                                        )),
-                                              ],
-                                            ),
-                                            Container(height: 5),
-                                            // Add a title widget
-                                            Row(
-                                              children: [
-                                                const Text("Claim Name : ",
-                                                    style: TextStyle(
-                                                      fontSize: 15,
-                                                      color: Colors.white,
-                                                      // fontWeight: FontWeight.bold
-                                                    ),
-                                                    maxLines: 2),
-                                                Text(
-                                                    paymentsDetails!
-                                                        .later_fees!,
-                                                    style: const TextStyle(
-                                                        fontSize: 12,
-                                                        color: Colors.white
-                                                        // fontWeight: FontWeight.bold
-                                                        )),
-                                              ],
-                                            ),
-                                            Container(height: 5),
-                                            // Add a title widget
-                                            Row(
-                                              children: [
-                                                const Text("Claim Name : ",
-                                                    style: TextStyle(
-                                                      fontSize: 15,
-                                                      color: Colors.white,
-                                                      // fontWeight: FontWeight.bold
-                                                    ),
-                                                    maxLines: 2),
-                                                Text(paymentsDetails!.mor_fees!,
-                                                    style: const TextStyle(
-                                                        fontSize: 12,
-                                                        color: Colors.white
-                                                        // fontWeight: FontWeight.bold
-                                                        )),
-                                              ],
-                                            ),
-                                            Container(height: 5),
-                                            // Add a title widget
-                                            Row(
-                                              children: [
-                                                const Text("Claim Name : ",
-                                                    style: TextStyle(
-                                                      fontSize: 15,
-                                                      color: Colors.white,
-                                                      // fontWeight: FontWeight.bold
-                                                    ),
-                                                    maxLines: 2),
-                                                Text(
-                                                    paymentsDetails!
-                                                        .other_fees!,
-                                                    style: const TextStyle(
-                                                        fontSize: 12,
-                                                        color: Colors.white
-                                                        // fontWeight: FontWeight.bold
-                                                        )),
-                                              ],
-                                            ),
-                                            Container(height: 5),
-                                            // Add a title widget
-                                            Row(
-                                              children: [
-                                                const Text("Claim Name : ",
-                                                    style: TextStyle(
-                                                      fontSize: 15,
-                                                      color: Colors.white,
-                                                      // fontWeight: FontWeight.bold
-                                                    ),
-                                                    maxLines: 2),
-                                                Text(paymentsDetails!.reg_fees!,
-                                                    style: const TextStyle(
-                                                        fontSize: 12,
-                                                        color: Colors.white
-                                                        // fontWeight: FontWeight.bold
-                                                        )),
-                                              ],
-                                            ),
-                                            Container(height: 5),
-                                            // Add a title widget
-                                            Row(
-                                              children: [
-                                                const Text("Claim Name : ",
-                                                    style: TextStyle(
-                                                      fontSize: 15,
-                                                      color: Colors.white,
-                                                      // fontWeight: FontWeight.bold
-                                                    ),
-                                                    maxLines: 2),
-                                                Text(
-                                                    paymentsDetails!
-                                                        .resignation_fees!,
-                                                    style: const TextStyle(
-                                                        fontSize: 12,
-                                                        color: Colors.white
-                                                        // fontWeight: FontWeight.bold
-                                                        )),
-                                              ],
-                                            ),
-                                            // Add some spacing between the title and the subtitle
-                                            Container(height: 5),
-                                            // Add a subtitle widget
                                             Row(
                                               children: [
                                                 const Text("Claim Amount : ",
                                                     style: TextStyle(
                                                         fontSize: 15,
-                                                        color: Colors.white
-                                                        // fontWeight: FontWeight.bold
-                                                        ),
+                                                        color: Colors.white),
                                                     maxLines: 2),
                                                 Text(
-                                                    paymentsDetails!
-                                                        .statment_fees!,
+                                                    paymentDetails!.certf_fees!,
                                                     style: const TextStyle(
                                                         fontSize: 12,
-                                                        color: Colors.white
-                                                        // fontWeight: FontWeight.bold
-                                                        )),
+                                                        color: Colors.white)),
                                               ],
                                             ),
-                                            // Add some spacing between the subtitle and the text
                                             Container(height: 10),
-
                                             Row(
                                               children: [
                                                 const Text("Accounter : ",
                                                     style: TextStyle(
                                                         fontSize: 15,
-                                                        color: Colors.white
-                                                        // fontWeight: FontWeight.bold
-                                                        ),
+                                                        color: Colors.white),
                                                     maxLines: 2),
-                                                Text(
-                                                    paymentsDetails!
-                                                        .study_fees!,
+                                                Text(paymentDetails!.it_fees!,
                                                     style: const TextStyle(
                                                         fontSize: 15,
-                                                        color: Colors.white
-                                                        // fontWeight: FontWeight.bold
-                                                        )),
+                                                        color: Colors.white)),
                                               ],
                                             ),
                                             Container(height: 10),
-                                            // Add a text widget to display some text
                                             Row(
                                               children: [
                                                 const Text("Due : ",
                                                     style: TextStyle(
                                                         fontSize: 15,
-                                                        color: Colors.white
-                                                        // fontWeight: FontWeight.bold
-                                                        ),
+                                                        color: Colors.white),
                                                     maxLines: 2),
-                                                Text(paymentsDetails!.total!,
+                                                Text(
+                                                    paymentDetails!.later_fees!,
                                                     style: const TextStyle(
                                                         fontSize: 15,
-                                                        color: Colors.white
-                                                        // fontWeight: FontWeight.bold
-                                                        )),
+                                                        color: Colors.white)),
                                               ],
                                             ),
                                           ],
@@ -486,76 +251,8 @@ class _PaymentDetailsContainerState extends State<PaymentDetailsContainer> {
                                   ),
                                 ),
                               ],
-                            )),
-                      )
-                    // return Card(
-                    //   margin: const EdgeInsets.symmetric(
-                    //       horizontal: 10, vertical: 10),
-                    //   elevation: 0.2,
-                    //   // child: Padding(
-                    //   //   padding: const EdgeInsets.all(10.0),
-                    //   // child: Padding(
-                    //   //   padding: const EdgeInsets.symmetric(
-                    //   //       horizontal: 100, vertical: 100),
-                    //   child: Column(
-                    //     mainAxisAlignment: MainAxisAlignment.start,
-                    //     // crossAxisAlignment: CrossAxisAlignment.start,
-                    //     children: [
-                    //       Row(
-                    //         children: [
-                    //           const Text("Paid Payments Name : ",
-                    //               style: TextStyle(
-                    //                 fontSize: 20,
-                    //                 // fontWeight: FontWeight.bold
-                    //               ),
-                    //               maxLines: 2),
-                    //           Text(paidData![index].name!,
-                    //               style: const TextStyle(
-                    //                 fontSize: 20,
-                    //                 // fontWeight: FontWeight.bold
-                    //               )),
-                    //         ],
-                    //       ),
-                    //       // Spacer(),
-                    //       const SizedBox(height: 8),
-                    //       Row(
-                    //         children: [
-                    //           const Text("Paid Payments Amount : ",
-                    //               style: TextStyle(
-                    //                 fontSize: 16,
-                    //                 // fontWeight: FontWeight.bold
-                    //               )),
-                    //           Text(paidData![index].amount!,
-                    //               style: const TextStyle(fontSize: 16)),
-                    //         ],
-                    //       ),
-                    //       const SizedBox(height: 8),
-                    //       Row(
-                    //         children: [
-                    //           Text('Due : ${paidData![index].date!}'),
-                    //         ],
-                    //       )
-                    //     ],
-                    //   ),
-                    //   // ),
-                    // );
-                    // return ListTile(
-                    //   title: Text(
-                    //     // 'ID: ${paidData![index].id}\n'
-                    //     'Name: ${paidData![index].name}\n'
-                    //     'Amount: ${paidData![index].amount}\n'
-                    //     'Date: ${paidData![index].date}\n',
-                    //   ),
-                    // );
-                    //   },
-                    //   separatorBuilder: (BuildContext context, int index) {
-                    //     return const Divider(
-                    //       color: Colors.black,
-                    //       height: 3.0,
-                    //     );
-                    //   },
-                    // )
-                    : const CircularProgressIndicator(), // Show a loading spinner if paidData is null
+                            )))
+                    : const CircularProgressIndicator(),
               );
             }
             if (state is StudentPaidDetailsFetchFailure) {
@@ -613,79 +310,3 @@ class _PaymentDetailsContainerState extends State<PaymentDetailsContainer> {
     "code": 200
 }
  */
-
-// import 'package:flutter/material.dart';
-
-// class PaymentsPage extends StatefulWidget {
-//   @override
-//   _PaymentsPageState createState() => _PaymentsPageState();
-// }
-
-// class _PaymentsPageState extends State<PaymentsPage> {
-//   // List<Assignment> assignments = [
-//   //   Assignment(
-//   //     subject: 'Maths (Practical)',
-//   //     title: 'Drawing Of Nature',
-//   //     dueDate: DateTime.parse('2024-03-22 01:29:00'),
-//   //   ),
-//   //   Assignment(
-//   //     subject: 'Computer (Practical)',
-//   //     title: 'Drawing (Practical)',
-//   //     dueDate: DateTime.parse('2024-02-23 01:28:00'),
-//   //   ),
-//   //   Assignment(
-//   //     subject: 'Account',
-//   //     title: 'Assignment 1',
-//   //     dueDate: DateTime.parse('2024-02-23 01:25:00'),
-//   //   ),
-//   //   Assignment(
-//   //     subject: 'Maths (Practical)',
-//   //     title: 'Decimal Number Sys...',
-//   //     dueDate: DateTime.parse('2023-08-22 01:24:00'),
-//   //   ),
-//   //   Assignment(
-//   //     subject: 'Account',
-//   //     title: 'Poem Writing',
-//   //     dueDate: DateTime.parse('2023-08-22 01:23:00'),
-//   //   ),
-//   // ];
-
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Assignments'),
-//       ),
-//       body: ListView.builder(
-//         itemCount: assignments.length,
-//         itemBuilder: (context, index) {
-//           final assignment = assignments[index];
-//           return Card(
-//             child: Padding(
-//               padding: const EdgeInsets.all(16.0),
-//               child: Column(
-//                 children: [
-//                   Text(assignment.title,
-//                       style:
-//                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-//                   SizedBox(height: 8),
-//                   Text(assignment.subject, style: TextStyle(fontSize: 16)),
-//                   SizedBox(height: 8),
-//                   Text('Due: ${assignment.dueDate.toIso8601String()}'),
-//                 ],
-//               ),
-//             ),
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }
-
-// class Assignment {
-//   final String subject;
-//   final String title;
-//   final DateTime dueDate;
-
-//   Assignment(
-//       {required this.subject, required this.title, required this.dueDate});
-// }

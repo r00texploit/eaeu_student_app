@@ -2,7 +2,7 @@
 // import 'package:student/data/models/assignment.dart';
 import 'dart:convert';
 
-import 'package:student/data/models/PaymentsDetails.dart';
+import 'package:student/data/models/paymentsDetails.dart';
 import 'package:student/data/models/paidPayments.dart';
 import 'package:student/utils/api.dart';
 
@@ -48,7 +48,7 @@ class PaymentDetailsRepository {
       print("resp: ${result['data']}");
       return PaymentsDetails.fromJson(
           // jsonDecode(
-          result);
+          result['data']);
       // .toString()
       // ); //fetchPaymentsFromResponse(result['data']['data']);
       // {
