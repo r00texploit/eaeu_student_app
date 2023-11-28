@@ -71,6 +71,7 @@ dependencies:
   external_path: ^1.0.3
   flutter_animate: ^4.2.0+1
   flutter_localization: ^0.1.14
+  json_serializable: ^6.7.1
 
 dependency_overrides:
   intl: any

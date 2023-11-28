@@ -14,11 +14,11 @@ class PaymentsDetails {
   String? total;
 
   PaymentsDetails(
-      {this.card_fees,
-      this.certf_fees,
-      this.it_fees,
-      this.later_fees,
-      this.mor_fees,
+      {this.card_fees,//
+      this.certf_fees,//
+      this.it_fees,//
+      this.later_fees,//
+      this.mor_fees,//
       this.other_fees,
       this.reg_fees,
       this.resignation_fees,

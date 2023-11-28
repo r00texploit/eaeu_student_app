@@ -151,107 +151,309 @@ class _PayProfileContainerState extends State<PaymentDetailsContainer> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        Container(
+          height: MediaQuery.of(context).size.height * 0.4,
+        ),
         BlocBuilder<PaymentsDetailsCubit, PaymentsDetailsState>(
           builder: (context, state) {
             if (state is PaymentsDetailsFetchSuccess) {
+              print("object ${paymentDetails!.card_fees!}");
               return Align(
                 alignment: Alignment.topCenter,
                 child: (paymentDetails != null)
-                    ? Card(
-                        child: Material(
-                            color: Colors.blueAccent,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(15),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Image.asset(
-                                        "assets/images/claims.png",
-                                        height: 80,
-                                        width: 80,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Container(width: 20),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Container(height: 5),
-                                            Row(
-                                              children: [
-                                                const Text("Claim Name : ",
-                                                    style: TextStyle(
-                                                      fontSize: 15,
-                                                      color: Colors.white,
-                                                    ),
-                                                    maxLines: 2),
-                                                Text(paymentDetails!.card_fees!,
-                                                    style: const TextStyle(
-                                                        fontSize: 12,
-                                                        color: Colors.white)),
-                                              ],
-                                            ),
-                                            Container(height: 5),
-                                            Row(
-                                              children: [
-                                                const Text("Claim Amount : ",
-                                                    style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.white),
-                                                    maxLines: 2),
-                                                Text(
-                                                    paymentDetails!.certf_fees!,
-                                                    style: const TextStyle(
-                                                        fontSize: 12,
-                                                        color: Colors.white)),
-                                              ],
-                                            ),
-                                            Container(height: 10),
-                                            Row(
-                                              children: [
-                                                const Text("Accounter : ",
-                                                    style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.white),
-                                                    maxLines: 2),
-                                                Text(paymentDetails!.it_fees!,
-                                                    style: const TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.white)),
-                                              ],
-                                            ),
-                                            Container(height: 10),
-                                            Row(
-                                              children: [
-                                                const Text("Due : ",
-                                                    style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.white),
-                                                    maxLines: 2),
-                                                Text(
-                                                    paymentDetails!.later_fees!,
-                                                    style: const TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.white)),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                    ? Container(
+                        child: Card(
+                            child: Material(
+                                color: Colors.blueAccent,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4),
                                 ),
-                              ],
-                            )))
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.all(15),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Image.asset(
+                                            "assets/images/claims.png",
+                                            height: 80,
+                                            width: 80,
+                                            fit: BoxFit.cover,
+                                          ),
+                                          Container(width: 20),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Container(height: 10),
+                                                paymentDetails!.reg_fees!
+                                                            .compareTo(
+                                                                "0.00") ==
+                                                        0
+                                                    ? Container(height: 10)
+                                                    : Row(
+                                                        children: [
+                                                          const Text(
+                                                              "Registration Fees : ",
+                                                              style: TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white),
+                                                              maxLines: 2),
+                                                          Text(
+                                                              paymentDetails!
+                                                                  .reg_fees!,
+                                                              style: const TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white)),
+                                                        ],
+                                                      ),
+                                                Container(height: 10),
+                                                (paymentDetails!.card_fees!)
+                                                            .compareTo(
+                                                                "0.00") ==
+                                                        0
+                                                    ? Container(height: 10)
+                                                    : Row(
+                                                        children: [
+                                                          const Text(
+                                                              "Card Fees : ",
+                                                              style: TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white),
+                                                              maxLines: 2),
+                                                          Text(
+                                                              paymentDetails!
+                                                                  .card_fees!,
+                                                              style: const TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white)),
+                                                        ],
+                                                      ),
+                                                Container(height: 10),
+                                                (paymentDetails!.study_fees!)
+                                                            .compareTo(
+                                                                "0.00") ==
+                                                        0
+                                                    ? Container(height: 10)
+                                                    : Row(
+                                                        children: [
+                                                          const Text(
+                                                              "study Fees : ",
+                                                              style: TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white),
+                                                              maxLines: 2),
+                                                          Text(
+                                                              paymentDetails!
+                                                                  .study_fees!,
+                                                              style: const TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white)),
+                                                        ],
+                                                      ),
+                                                Container(height: 10),
+                                                (paymentDetails!.mor_fees!)
+                                                            .compareTo(
+                                                                "0.00") ==
+                                                        0
+                                                    ? Container(height: 10)
+                                                    : Row(
+                                                        children: [
+                                                          const Text(
+                                                              "More Fees : ",
+                                                              style: TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white),
+                                                              maxLines: 2),
+                                                          Text(
+                                                              paymentDetails!
+                                                                  .mor_fees!,
+                                                              style: const TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white)),
+                                                        ],
+                                                      ),
+                                                Container(height: 10),
+                                                (paymentDetails!.later_fees!)
+                                                            .compareTo(
+                                                                "0.00") ==
+                                                        0
+                                                    ? Container(height: 10)
+                                                    : Row(
+                                                        children: [
+                                                          const Text(
+                                                              "Later Fees : ",
+                                                              style: TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white),
+                                                              maxLines: 2),
+                                                          Text(
+                                                              paymentDetails!
+                                                                  .later_fees!,
+                                                              style: const TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white)),
+                                                        ],
+                                                      ),
+                                                Container(height: 10),
+                                                (paymentDetails!.it_fees!)
+                                                            .compareTo(
+                                                                "0.00") ==
+                                                        0
+                                                    ? Container(height: 10)
+                                                    : Row(
+                                                        children: [
+                                                          const Text(
+                                                              "IT Fees : ",
+                                                              style: TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white),
+                                                              maxLines: 2),
+                                                          Text(
+                                                              paymentDetails!
+                                                                  .it_fees!,
+                                                              style: const TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white)),
+                                                        ],
+                                                      ),
+                                                Container(height: 10),
+                                                (paymentDetails!.other_fees!)
+                                                            .compareTo(
+                                                                "0.00") ==
+                                                        0
+                                                    ? Container(height: 10)
+                                                    : Row(
+                                                        children: [
+                                                          const Text(
+                                                              "Other Fees : ",
+                                                              style: TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white),
+                                                              maxLines: 2),
+                                                          Text(
+                                                              paymentDetails!
+                                                                  .other_fees!,
+                                                              style: const TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white)),
+                                                        ],
+                                                      ),
+                                                Container(height: 10),
+                                                (paymentDetails!.certf_fees!)
+                                                            .compareTo(
+                                                                "0.00") ==
+                                                        0
+                                                    ? Container(height: 10)
+                                                    : Row(
+                                                        children: [
+                                                          const Text(
+                                                              "Certificate Fees : ",
+                                                              style: TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white),
+                                                              maxLines: 2),
+                                                          Text(
+                                                              paymentDetails!
+                                                                  .certf_fees!,
+                                                              style: const TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white)),
+                                                        ],
+                                                      ),
+                                                Container(height: 10),
+                                                (paymentDetails!.statment_fees!)
+                                                            .compareTo(
+                                                                "0.00") ==
+                                                        0
+                                                    ? Container(height: 10)
+                                                    : Row(
+                                                        children: [
+                                                          const Text(
+                                                              "Statments Fees : ",
+                                                              style: TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white),
+                                                              maxLines: 2),
+                                                          Text(
+                                                              paymentDetails!
+                                                                  .statment_fees!,
+                                                              style: const TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white)),
+                                                        ],
+                                                      ),
+                                                Container(height: 10),
+                                                (paymentDetails!.resignation_fees!)
+                                                            .compareTo(
+                                                                "0.00") ==
+                                                        0
+                                                    ? Container(height: 10)
+                                                    : Row(
+                                                        children: [
+                                                          const Text(
+                                                              "Resignation Fees : ",
+                                                              style: TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white),
+                                                              maxLines: 2),
+                                                          Text(
+                                                              paymentDetails!
+                                                                  .resignation_fees!,
+                                                              style: const TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .white)),
+                                                        ],
+                                                      ),
+                                                Container(height: 10),
+                                                Row(
+                                                  children: [
+                                                    const Text("Total : ",
+                                                        style: TextStyle(
+                                                            fontSize: 15,
+                                                            color:
+                                                                Colors.white),
+                                                        maxLines: 2),
+                                                    Text(paymentDetails!.total!,
+                                                        style: const TextStyle(
+                                                            fontSize: 15,
+                                                            color:
+                                                                Colors.white)),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ))))
                     : const CircularProgressIndicator(),
               );
             }
