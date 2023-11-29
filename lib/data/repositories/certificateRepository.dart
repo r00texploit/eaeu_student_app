@@ -2,10 +2,7 @@ import 'package:student/data/models/certificate_response.dart';
 import 'package:student/utils/api.dart';
 
 class CertificateRepository {
-  Future<CertificateResponse> fetchCertificates({
-    int? page,
-    int? type,
-  }) async {
+  Future<CertificateResponse> fetchCertificates() async {
     try {
       Map<String, dynamic> queryParameters = {
         // "type": 2 ?? 0,

@@ -40,4 +40,6 @@ final List<Menu> homeBottomSheetMenu = [
   ),
   // Menu(iconUrl: UiUtils.getImagePath("holiday_icon.svg"), title: holidaysKey),
   Menu(iconUrl: UiUtils.getImagePath("setting_icon.svg"), title: settingsKey),
+  Menu(
+      iconUrl: UiUtils.getImagePath("setting_icon.svg"), title: certificateKey),
 ];

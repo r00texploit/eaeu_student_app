@@ -17,6 +17,7 @@ import 'package:student/ui/screens/home/widgets/bottomNavigationItemContainer.da
 import 'package:student/ui/screens/home/widgets/examContainer.dart';
 import 'package:student/ui/screens/home/widgets/homeContainer.dart';
 import 'package:student/ui/screens/home/widgets/moreMenuBottomsheetContainer.dart';
+import 'package:student/ui/screens/home/widgets/order_certificate.dart';
 import 'package:student/ui/screens/home/widgets/paidProfileContainer.dart';
 import 'package:student/ui/screens/home/widgets/parentProfileContainer.dart';
 import 'package:student/ui/screens/home/widgets/payProfileContainer.dart';
@@ -388,6 +389,9 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     if (homeBottomSheetMenu[_currentlyOpenMenuIndex].title == reportsKey) {
       return const ReportSubjectsContainer();
+    }
+    if (homeBottomSheetMenu[_currentlyOpenMenuIndex].title == certificateKey) {
+      return const CertificateSelectionScreen();
     }
 
     return const SizedBox();

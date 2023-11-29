@@ -15,6 +15,8 @@ const String paidProfileKey = "paidProfile";
 const String resultsKey = "results";
 const String settingsKey = "settings";
 const String reportsKey = "reports";
+const String certificateKey = "certificate";
+
 const String examsKey = "exams";
 const String profileKey = "profile";
 const String personalDetailsKey = "personalDetails";
