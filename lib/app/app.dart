@@ -1,12 +1,16 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:student/cubits/PaymentsDetailsCubit.dart';
 import 'package:student/cubits/paymentsCubit.dart';
+import 'package:student/cubits/certificateCubit.dart';
+
 import 'package:student/cubits/resultsOnlineCubit.dart';
 import 'package:student/cubits/studentPaidDetailsCubit.dart';
 import 'package:student/cubits/studentPayDetailsCubit.dart';
 import 'package:student/data/repositories/paidRepository.dart';
 import 'package:student/data/repositories/paymentDetailsRepository.dart';
 import 'package:student/data/repositories/paymentRepository.dart';
+import 'package:student/data/repositories/certificateRepository.dart';
+
 
 import 'package:student/data/repositories/resultRepository.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -196,6 +200,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider<StudentPayDetailsCubit>(
           create: (_) => StudentPayDetailsCubit(PaymentRepository()),
+        ),
+        BlocProvider<CertificateCubit>(
+          create: (_) => CertificateCubit(CertificateRepository()),
         ),
         BlocProvider<PaymentsTabSelectionCubit>(
           create: (_) => PaymentsTabSelectionCubit(),

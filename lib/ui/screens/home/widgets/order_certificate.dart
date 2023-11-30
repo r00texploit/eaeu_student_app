@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:student/cubits/certificateCubit.dart';
 import 'package:student/data/models/certificate_response.dart';
+import 'package:student/ui/widgets/multiSelection.dart';
+import 'package:student/utils/uiUtils.dart';
 
 class CertificateSelectionScreen extends StatefulWidget {
   const CertificateSelectionScreen({Key? key}) : super(key: key);
@@ -26,16 +28,19 @@ class _CertificateSelectionScreenState
     });
   }
 
+  List select = [];
+  List<int> selectOption = [];
   @override
   Widget build(BuildContext context) {
-    TextEditingController? firstName, sec_name, third_name, lastName;
-    List selected = [];
+    TextEditingController? firstName, sec_name, third_name, lastName, phone;
+    bool? selected;
     List<int> multipleSelected = [];
-    var cert = context.read<CertificateCubit>().getCertificate();
+    // var cert = context.read<CertificateCubit>().getCertificate();
     firstName = TextEditingController();
     sec_name = TextEditingController();
     third_name = TextEditingController();
     lastName = TextEditingController();
+    phone = TextEditingController();
     // return BlocBuilder<CertificateCubit, CertificateState>(
     //   builder: (context, state) {
     return Scaffold(
@@ -45,18 +50,18 @@ class _CertificateSelectionScreenState
       body: BlocBuilder<CertificateCubit, CertificateState>(
         builder: (context, state) {
           // return BlocConsumer( listener: (context, state) {}, builder: (context, state) {
-          if (state.success != null) {
-            return Center(
+          if (state is CertificateFetchSuccess) {
+            return const Center(
               child: Text(
-                state.success!,
-                style: const TextStyle(color: Colors.green),
+                "state.success",
+                style: TextStyle(color: Colors.green),
               ),
             );
-          } else if (state.error != null) {
-            return Center(
+          } else if (state is CertificateFetchFailure) {
+            return const Center(
               child: Text(
-                state.error!,
-                style: const TextStyle(color: Colors.red),
+                "state.error",
+                style: TextStyle(color: Colors.red),
               ),
             );
           } else {
@@ -67,7 +72,7 @@ class _CertificateSelectionScreenState
                 children: [
                   TextFormField(
                     controller: firstName,
-                    initialValue: state.firstName,
+                    initialValue: context.read<CertificateCubit>().firstName,
                     onChanged: (value) {
                       context
                           .read<CertificateCubit>()
@@ -85,7 +90,7 @@ class _CertificateSelectionScreenState
                   ),
                   TextFormField(
                     controller: sec_name,
-                    initialValue: state.secondName,
+                    initialValue: context.read<CertificateCubit>().secondName,
                     onChanged: (value) {
                       context
                           .read<CertificateCubit>()
@@ -103,7 +108,7 @@ class _CertificateSelectionScreenState
                   ),
                   TextFormField(
                     controller: third_name,
-                    initialValue: state.firstName,
+                    initialValue: context.read<CertificateCubit>().thirdName,
                     onChanged: (value) {
                       context
                           .read<CertificateCubit>()
@@ -121,7 +126,7 @@ class _CertificateSelectionScreenState
                   ),
                   TextFormField(
                     controller: lastName,
-                    initialValue: state.firstName,
+                    initialValue: context.read<CertificateCubit>().fourthName,
                     onChanged: (value) {
                       context
                           .read<CertificateCubit>()
@@ -137,7 +142,37 @@ class _CertificateSelectionScreenState
                       return null;
                     },
                   ),
+                  TextFormField(
+                    controller: phone,
+                    initialValue: context.read<CertificateCubit>().phone,
+                    onChanged: (value) {
+                      context.read<CertificateCubit>().updatePhone(phone!.text);
+                    },
+                    decoration: const InputDecoration(
+                      labelText: 'Phone Number',
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your Phone Number.';
+                      }
+                      return null;
+                    },
+                  ),
                   const SizedBox(height: 16.0),
+                  MultiSelectCheckbox(
+                    options: certificateResponse!.data,
+                    selectedOptions: [],
+                    onSelectionChanged: (p0) {
+                      multipleSelected = p0;
+                      print("first name: ${firstName!.text}");
+                      print("second name: ${sec_name!.text}");
+                      print("third name: ${third_name!.text}");
+                      print("last name: ${lastName!.text}");
+                      print("phone: ${phone!.text}");
+
+                      print("object: ${multipleSelected}");
+                    },
+                  ),
                   // CheckboxListTile(
                   //   title: const Text('Certificate Type A'),
                   //   value: certificateResponse.,
@@ -152,33 +187,60 @@ class _CertificateSelectionScreenState
                   //       .read<CertificateCubit>()
                   //       .toggleSelectedCertificateType(),
                   // ),
-                  ListView.builder(
-                    itemCount: certificateResponse!.data.length,
-                    itemBuilder: (context, index) {
-                      return CheckboxListTile(
-                        title: Text(
-                            'Certificate Type ${certificateResponse!.data[index].name}'),
-                        subtitle: Text(
-                            'Certificate Price ${certificateResponse!.data[index].minPrice}'),
-                        value: selected
-                            .contains(certificateResponse!.data[index].name),
-                        onChanged: (value) {
-                          setState(() {
-                            multipleSelected
-                                .add(certificateResponse!.data[index].id);
-                          });
-                        },
-                      );
-                    },
-                  ),
+
+                  // ListView.builder(
+                  //   // padding: EdgeInsets.only(
+                  //   //   bottom: UiUtils.getScrollViewBottomPadding(context),
+                  //   //   top: MediaQuery.of(context).size.height *
+                  //   //       (UiUtils.appBarSmallerHeightPercentage + 0.075),
+                  //   // ),
+                  //   shrinkWrap: true,
+                  //   itemCount: certificateResponse!.data.length,
+                  //   itemBuilder: (context, index) {
+                  //     // Column(
+                  //     // children:
+                  //     return CheckboxListTile(
+                  //       title: Text(
+                  //           'Certificate Type ${certificateResponse!.data[index].name}'),
+                  //       subtitle: Text(
+                  //           'Certificate Price ${certificateResponse!.data[index].minPrice}'),
+                  //       value: multipleSelected
+                  //           .contains(certificateResponse!.data[index].id),
+                  //       onChanged: (value) {
+                  //         // selected = value!;
+                  //         if (multipleSelected
+                  //             .contains(certificateResponse!.data[index].id)) {
+                  //           selectOption
+                  //               .remove(certificateResponse!.data[index].id);
+                  //           // selected = !selected!;
+                  //         } else {
+                  //           // selected = !selected!;
+                  //           selectOption
+                  //               .add(certificateResponse!.data[index].id);
+                  //         }
+                  //         multipleSelected.addAll(selectOption);
+                  //         print("selection : ${selectOption}");
+                  //         setState(() {});
+                  //       },
+                  //     );
+                  //   },
+                  // ),
                   const SizedBox(height: 16.0),
                   ElevatedButton(
-                    onPressed: () =>
-                        context.read<CertificateCubit>().submitData(multipleSelected),
+                    onPressed: () => context
+                        .read<CertificateCubit>()
+                        .submitData(
+                            multipleSelected,
+                            firstName!.text,
+                            sec_name!.text,
+                            third_name!.text,
+                            lastName!.text,
+                            phone!.text),
                     child: const Text('Submit'),
                   ),
                 ],
               ),
+              // )
             );
           }
           // }

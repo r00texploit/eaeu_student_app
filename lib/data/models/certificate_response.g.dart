@@ -28,12 +28,12 @@ Map<String, dynamic> _$CertificateResponseToJson(
 Certificate _$CertificateFromJson(Map<String, dynamic> json) => Certificate(
       id: json['id'] as int,
       name: json['name'] as String,
-      minPrice: json['minPrice'] as String,
+      minPrice: json['min_price'] as String,
     );
 
 Map<String, dynamic> _$CertificateToJson(Certificate instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'minPrice': instance.minPrice,
+      'min_price': instance.minPrice,
     };

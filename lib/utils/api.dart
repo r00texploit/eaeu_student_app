@@ -52,6 +52,7 @@ class Api {
   static String getPaymentDetais = "${databaseUrl}student/get-payment-details";
   static String getCertificateType =
       "${databaseUrl}student/request-certificate";
+  static String orderCertificate = "${databaseUrl}student/certificate-store";
 
   static String submitAssignment = "${databaseUrl}student/submit-assignment";
   static String getPaidData = "${databaseUrl}student/get-paid-data";
