@@ -1,0 +1,216 @@
+// import 'package:bloc/bloc.dart';
+// import 'package:dio/dio.dart';
+// import 'package:flutter/material.dart';
+
+// class CertificateCubit extends Cubit<CertificateState> {
+//   CertificateCubit() : super(const CertificateState(fullName: '', selectedCertificateType: false));
+
+//   void updateFullName(String fullName) {
+//     emit(state.copyWith(fullName: fullName));
+//   }
+
+//   void toggleSelectedCertificateType() {
+//     emit(state.copyWith(selectedCertificateType: !state.selectedCertificateType));
+//   }
+
+//   Future<void> submitData() async {
+//     if (state.fullName.isEmpty) {
+//       emit(const CertificateState(
+//         fullName: '',
+//         selectedCertificateType: false,
+//         error: 'Please enter your full name.',
+//       ));
+//       return;
+//     }
+
+//     final dio = Dio();
+//     try {
+//       final response = await dio.post('/api/certificates', data: {
+//         'full_name': state.fullName,
+//         'certificate_type': state.selectedCertificateType ? 'Type A' : 'Type B',
+//       });
+
+//       if (response.statusCode == 200) {
+//         emit(const CertificateState(
+//           fullName: '',
+//           selectedCertificateType: false,
+//           success: 'Certificate order submitted successfully!',
+//         ));
+//       } else {
+//         emit(const CertificateState(
+//           fullName: '',
+//           selectedCertificateType: false,
+//           error: 'An error occurred while submitting the data.',
+//         ));
+//       }
+//     } catch (error) {
+//       emit(const CertificateState(
+//         fullName: '',
+//         selectedCertificateType: false,
+//         error: 'An error occurred while communicating with the API.',
+//       ));
+//     }
+//   }
+// }
+
+// class CertificateState {
+//   // final String? fullName;
+//   final List<String>? selectedCertificateType;
+//   final String? firstName,secondName,thirdName,lastName
+//   final String? error;
+//   final String? success;
+
+//   const CertificateState({
+//     required this.firstName,
+//     required this.secondName,
+//     required this.thirdName,
+//     required this.lastName,
+//     required this.selectedCertificateType,
+//     this.error,
+//     this.success,
+//   });
+
+//   CertificateState copyWith({
+//     String? fullName,
+//     bool? selectedCertificateType,
+//     String? error,
+//     String? success,
+//   }) {
+//     return CertificateState(
+//       fullName: fullName ?? this.fullName,
+//       selectedCertificateType: selectedCertificateType ?? this.selectedCertificateType,
+//       error: error ?? this.error,
+//       success: success ?? this.success,
+//     );
+//   }
+// }
+
+// class CertificateSelectionScreen extends StatelessWidget {
+//   const CertificateSelectionScreen({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocProvider(
+//       create: (context) => CertificateCubit(),
+//       child: Scaffold(
+//         appBar: AppBar(
+//           title: const Text('Certificate Selection'),
+//         ),
+//         body: BlocBuilder<CertificateCubit, CertificateState>(
+//           builder: (context, state) {
+//             if (state.success != null) {
+//               return Center(
+//                 child: Text(
+//                   state.success!,
+//                   style: const TextStyle(color: Colors.green),
+//                 ),
+//               );
+//             } else if (state.error != null) {
+//               return Center(
+//                 child: Text(
+//                   state.error!,
+//                   style: const TextStyle(color: Colors.red),
+//                 ),
+//               );
+//             } else {
+//               return Padding(
+//                 padding: const EdgeInsets.all(16.0),
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     TextFormField(
+//                       initialValue: state.fullName,
+//                       onChanged: (fullName) =>
+//                           context.read<CertificateCubit>().updateFullName(fullName),
+//                       decoration: const InputDecoration(
+//                         labelText: 'Full Name',
+//                       ),
+//                       validator: (value) {
+//                         if (value == null || value.isEmpty) {
+//                           return 'Please enter your full name.';
+//                         }
+//                         return null;
+//                       },
+//                     ),
+//                     const SizedBox(height: 16.0),
+//                     CheckboxListTile(
+//                       title: const Text('Certificate Type A'),
+//                       value: state.selectedCertificateType,
+//                       onChanged: (value) =>
+//                           context.read<CertificateCubit>().toggleSelectedCertificateType(),
+//                     ),
+//                     CheckboxListTile(
+//                       title: const Text('Certificate Type B'),
+//                       value: !state.selectedCertificateType,
+//                       onChanged: (value) =>
+//                           context.read<CertificateCubit>().toggleSelectedCertificateType(),
+//                     ),
+//                     const SizedBox(height: 16.0),
+//                     ElevatedButton(
+//                       onPressed: () => context.read<CertificateCubit>().submitData(),
+//                       child: const Text('Submit'),
+//                     ),
+//                   ],
+//                 ),
+//               );
+//             }
+//           },
+//         ),
+//       ),
+//     );
+//   }
+// }
+import 'package:flutter/material.dart';
+import 'package:multi_selection_filter/multi_selection_filter.dart';
+void 
+
+class MultiSelectionFilterScreen extends StatefulWidget {
+  const MultiSelectionFilterScreen({Key? key}) : super(key: key);
+
+  @override
+  _MultiSelectionFilterScreenState createState() =>
+      _MultiSelectionFilterScreenState();
+}
+
+class _MultiSelectionFilterScreenState extends State<MultiSelectionFilterScreen> {
+  List<String> selectedItems = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Multi Selection Filter'),
+      ),
+      body: Column(
+        children: [
+          const SizedBox(height: 16.0),
+          MultiSelectionFilter(
+            
+            items: const [
+              FilterItem(value: 'Option 1', label: 'Option 1'),
+              FilterItem(value: 'Option 2', label: 'Option 2'),
+              FilterItem(value: 'Option 3', label: 'Option 3'),
+            ],
+            onSelectionChanged: (selectedItems) {
+              setState(() {
+                this.selectedItems = selectedItems;
+              });
+            },
+            selectedItems: selectedItems,
+          ),
+          const SizedBox(height: 16.0),
+          Text('Selected Items: ${selectedItems.join(', ')}'),
+          
+          const SizedBox(height: 16.0),
+          ElevatedButton(
+            onPressed: () {
+              // Perform action based on selected items
+              print('Selected Items: ${selectedItems.join(', ')}');
+            },
+            child: const Text('Submit'),
+          ),
+        ],
+      ),
+    );
+  }
+}

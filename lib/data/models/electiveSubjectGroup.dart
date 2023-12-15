@@ -1,0 +1,31 @@
+import 'package:student/data/models/electiveSubject.dart';
+
+class ElectiveSubjectGroup {
+  late final int id;
+  late final String totalSelectableSubjects;
+  late final String totalSubjects;
+  late final List<ElectiveSubject> subjects;
+
+  ElectiveSubjectGroup({
+    required this.id,
+    required this.totalSelectableSubjects,
+    required this.subjects,
+    required this.totalSubjects,
+  });
+
+  ElectiveSubjectGroup.fromJson(Map<String, dynamic> json) {
+    id = json['id'] ?? 0;
+    totalSelectableSubjects = json['total_selectable_subjects'] ?? 0;
+    totalSubjects = json['total_subjects'] ?? 0;
+    subjects = json['elective_subjects'] == null
+        ? [] as List<ElectiveSubject>
+        : (json['elective_subjects'] as List)
+            .map(
+              (electiveSubject) => ElectiveSubject.fromJson(
+                electiveSubjectGroupId: id,
+                json: Map.from(electiveSubject['subject']),
+              ),
+            )
+            .toList();
+  }
+}
